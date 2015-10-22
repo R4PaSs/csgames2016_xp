@@ -1,0 +1,7 @@
+{% load markdown_deux_tags %}
+{% load crispy_forms_tags %}
+{{ chal.description_EN|markdown }}
+{{ chal.description_FR|markdown }}
+
+{% crispy form form.helper %}
+
