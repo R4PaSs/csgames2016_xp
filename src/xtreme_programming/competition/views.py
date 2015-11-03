@@ -1,4 +1,5 @@
 import datetime
+import os
 import time
 
 from django.conf import settings
@@ -13,7 +14,7 @@ from .forms import SubmissionForm
 NEXT_EXPIRE = None
 
 
-# @login_required()
+@login_required()
 def index(request):
     chals = Challenge.objects.all()
 
@@ -46,16 +47,35 @@ def update(request):
     return JsonResponse(_filter_chals())
 
 
-def problem(request, id):
-    chal_ok = None
-    chal = Challenge.objects.get(pk=id)
+def problem(request, cid):
+    context = {}
 
-    if chal.end:
-        if chal.end > datetime.datetime.now():
-            chal_ok = chal
+    if _is_open(cid):
+        chal = Challenge.objects.get(pk=cid)
+        context['chal'] = chal
+        context['form'] = SubmissionForm(cid=cid)
 
     return render(request, 'competition/problem.html',
-                  context={"chal": chal_ok, 'form': SubmissionForm()})
+                  context=context)
+
+
+def submit(request, cid):
+    if _is_open(cid):
+        form = SubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            if _valid_zip(form.cleaned_data['file']):
+                return JsonResponse({"id": cid}, status=200)
+        else:
+            print(form.errors)
+    return JsonResponse({"id": cid}, status=400)
+
+
+def _is_open(id):
+    chal = Challenge.objects.get(pk=id)
+    if chal.end:
+        if chal.end > datetime.datetime.now():
+            return True
+    return False
 
 
 def _start_challenge(chal):
@@ -91,3 +111,7 @@ def _check_open_challenges():
             _start_challenge(new_chal)
         except:
             pass
+
+
+def _valid_zip(infile):
+    return os.path.splitext(infile.name)[1] == ".zip"

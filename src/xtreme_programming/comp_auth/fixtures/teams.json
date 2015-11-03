@@ -1,0 +1,242 @@
+[
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "SB91O572OHVS7PQ8S2E4DSFEM2BPRDM4",
+    "name": "goat chickens"
+  },
+  "pk": 1
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "FLJGPAOVJ8DHCPRGNSAZSYAB7FH9VQAY",
+    "name": "dolphin pigs"
+  },
+  "pk": 2
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "ATKLY98GP78TQC4ZWIT0HF18E9QIG8MJ",
+    "name": "hamster turtles"
+  },
+  "pk": 3
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "ESLOLTTUK7O7ADMBFOCYD366BD6OVZBY",
+    "name": "elephant snakes"
+  },
+  "pk": 4
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "8LSUV1G4F97DH7Z2T4YYY7TVLQ2NUJ3Q",
+    "name": "octopus sharks"
+  },
+  "pk": 5
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "EPV8MP0LJ0ZSXQNQMF4CVY8S9JMUSRMX",
+    "name": "sheep puppys"
+  },
+  "pk": 6
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "RBM2Z58W64GUJCSE6X2OY5H5AR0K4T9P",
+    "name": "elephant chimpanzees"
+  },
+  "pk": 7
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "YI4AM6149IVSNJ1I5DP2EIFCDULF415A",
+    "name": "horse puppys"
+  },
+  "pk": 8
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "V8HVJNVMPQEV8FIN898SJMAI1EW4ZAN5",
+    "name": "kitten hippopotamuss"
+  },
+  "pk": 9
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "VFCJKHNBRME97DXYVS3F0KI6JGHQO9DX",
+    "name": "kangaroo horses"
+  },
+  "pk": 10
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "8HFAF9SIHFYKB8Z44K6GYCWKM6H23YOO",
+    "name": "crocodile chickens"
+  },
+  "pk": 11
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "L990DKN7HE7J6OLSYWI772IFM1ZJGCME",
+    "name": "rabbit hippopotamuss"
+  },
+  "pk": 12
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "J1SPPRJ1JDBTHM56DEPESANU7HH04YAT",
+    "name": "frog scorpions"
+  },
+  "pk": 13
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "2JAHCMNHX3KMJI4029EZOC0JDCGYW4DO",
+    "name": "deer ducks"
+  },
+  "pk": 14
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "4JKHECQXOL5A63WQDQKFDU60YH2J6CZU",
+    "name": "duck sheeps"
+  },
+  "pk": 15
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "P51E72KUKA08N1L67AWG0WOBDSESP05G",
+    "name": "sheep snakes"
+  },
+  "pk": 16
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "NYLHWDSUNGB2T1NMDL2ZYL0OFY217VIZ",
+    "name": "camel camels"
+  },
+  "pk": 17
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "P5U5JMWXVG5KZAXDYYMATUP9XBAEAQTD",
+    "name": "bee kangaroos"
+  },
+  "pk": 18
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "X37T2OPF76TX7U8R9DG735P1HZWUVDR5",
+    "name": "owl hippopotamuss"
+  },
+  "pk": 19
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "IR986D3G4NZD9KOEMKVBAB115KAAIZ69",
+    "name": "ant spiders"
+  },
+  "pk": 20
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "Y6U6FFP53Z4L43X2OMI1N6972YZTC3EH",
+    "name": "monkey cheetahs"
+  },
+  "pk": 21
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "E6NWAO5LMXHH8NP8RH76GIIBHVRUJLLJ",
+    "name": "sheep scorpions"
+  },
+  "pk": 22
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "QANHBMCBLQDPNXC8MQ6VNMA5U2NN67MO",
+    "name": "bear dogs"
+  },
+  "pk": 23
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "ICMX2JN20E09WOMPKTPLV50ZW9XPHW15",
+    "name": "turtle camels"
+  },
+  "pk": 24
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "YAKM0FIHSLSD0TZHIGLCB6LDMPGZOIRY",
+    "name": "chimpanzee cheetahs"
+  },
+  "pk": 25
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "FSX89PQ1LEOA3T325WCYLNU4YMDWD36S",
+    "name": "turtle spiders"
+  },
+  "pk": 26
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "SCWVUT3SASN89FLSZV9LR0FI8ZHY3CTN",
+    "name": "camel owls"
+  },
+  "pk": 27
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "VI4Z51UQ84RQNZRSJ8BV9XFJU8R3NUXI",
+    "name": "spider lobsters"
+  },
+  "pk": 28
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "1XX828PWB454HEJDS6DCP1MRTWQ0MBN4",
+    "name": "camel cats"
+  },
+  "pk": 29
+},
+{
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "4P2JMX73GREJPLGFUH4DFWJWAW4QMYJY",
+    "name": "chicken lions"
+  },
+  "pk": 30
+}
+]

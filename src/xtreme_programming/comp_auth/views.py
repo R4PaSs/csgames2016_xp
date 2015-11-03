@@ -1,37 +1,45 @@
 import datetime
 
+from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
-from django.shortcuts import redirect, render_to_response
+from django.shortcuts import redirect, render_to_response, render
 
 from .forms import LoginForm
+from .settings import COMPETITION_TOKEN
 
 
-# Create your views here.
 def login_view(request):
-    if request.method == 'GET':
-        form = LoginForm()
-        render_to_response('comp_auth/login.html', context={"form": form})
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            if _still_available(form.team_token):
-                login(request)
-                redirect('competition.index')
+            if form.cleaned_data['competition_token'] == COMPETITION_TOKEN:
+                if _still_available(form.cleaned_data['team_token']):
+                    team_token = form.cleaned_data['team_token']
+                    user = User.objects.filter(team__token=team_token)[0]
+                    team = user.team
+                    # user = authenticate(username=team.name + "_user")
+                    user.backend = 'django.contrib.auth.backends.ModelBackend'
+                    login(request, user)
+                    return redirect('/')
+    form = LoginForm()
+    return render(request,
+                  'comp_auth/login.html',
+                  context={"form": form})
 
 
 def logout_view(request):
     logout(request)
-    redirect('login_view')
+    return redirect(reverse_lazy('login'))
 
 
 def _still_available(team_token):
     spots_left = settings.MAX_USERS_PER_TEAM
     sessions = Session.objects.filter(
-        expire_date_time__gte=datetime.datetime.now()
+        expire_date__gte=datetime.datetime.now()
     )
     uid_list = []
 
@@ -45,7 +53,7 @@ def _still_available(team_token):
 
     if spots_left > 0:
         for user in users:
-            if user.participant.team.token == team_token:
+            if user.team.token == team_token:
                 spots_left -= 1
 
     return spots_left > 0

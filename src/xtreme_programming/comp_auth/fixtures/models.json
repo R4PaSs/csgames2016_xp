@@ -1,0 +1,272 @@
+[
+{
+  "pk": 1,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "X6TXF3OQLDL0URCK62Z6E3KJX5Z6WCRI",
+    "name": "kangaroo wolfs",
+    "user": 2
+  }
+},
+{
+  "pk": 2,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "TV1X4A0RIBPB0KZARPKWLFJ4QGWJE7G3",
+    "name": "tiger seals",
+    "user": 3
+  }
+},
+{
+  "pk": 3,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "A7AUBDZN0T1O3G1VOUJ865W8ZFBQ0SF3",
+    "name": "elephant wolfs",
+    "user": 4
+  }
+},
+{
+  "pk": 4,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "3WHDUHKTX8GM6F31F384TG4U7PTFX49O",
+    "name": "spider snails",
+    "user": 5
+  }
+},
+{
+  "pk": 5,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "3RC6L2KS3REZ18Z3VTNPSOMSUJ8JOXUX",
+    "name": "goldfish hamsters",
+    "user": 6
+  }
+},
+{
+  "pk": 6,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "ITZCG1U3BROE4SR0YWVQHHMD66RZHXZU",
+    "name": "octopus ducks",
+    "user": 7
+  }
+},
+{
+  "pk": 7,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "C9GPIOS7BUTW79478PPVY53EF8MM08NB",
+    "name": "bear owls",
+    "user": 8
+  }
+},
+{
+  "pk": 8,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "HEVK1GP1BJAXY4MF8YAMUC90Y3J7DSA6",
+    "name": "cat pigs",
+    "user": 9
+  }
+},
+{
+  "pk": 9,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "VIZWOUGUZNXAM3VB5GIS2GD3A9D9TJY7",
+    "name": "deer spiders",
+    "user": 10
+  }
+},
+{
+  "pk": 10,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "PF08H4XMNUGDYJIUL0QGSF1P8USW3YKJ",
+    "name": "sheep snakes",
+    "user": 11
+  }
+},
+{
+  "pk": 11,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "LDZRQ8LUMXC3J31HL2049A5OHNSYTKG9",
+    "name": "dog seals",
+    "user": 12
+  }
+},
+{
+  "pk": 12,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "B7DYBMP6HIXK4QTULZPU3IT2TALB8QGY",
+    "name": "fox hamsters",
+    "user": 13
+  }
+},
+{
+  "pk": 13,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "2WRPULJD8AHOTLBG9RWL7VOW3RR7G7YQ",
+    "name": "puppy hippopotamuss",
+    "user": 14
+  }
+},
+{
+  "pk": 14,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "3AWJOVID0DZO439EEAEP3TPPMO26VDJF",
+    "name": "dolphin giraffes",
+    "user": 15
+  }
+},
+{
+  "pk": 15,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "LGI14913WHEIAOL9RLSOT8KL490YOP9V",
+    "name": "seal dolphins",
+    "user": 16
+  }
+},
+{
+  "pk": 16,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "DUDZ6B0D49QBA5BJN0YC21Q7OFIIS83A",
+    "name": "chicken hamsters",
+    "user": 17
+  }
+},
+{
+  "pk": 17,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "PBYYNZP7JT06Q38M5AOJC8H5P8DFOGN3",
+    "name": "panda lions",
+    "user": 18
+  }
+},
+{
+  "pk": 18,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "THEJO2WYIO266A840GJHBU5FMPOV6DA7",
+    "name": "owl camels",
+    "user": 19
+  }
+},
+{
+  "pk": 19,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "FLAPJ05Z5OUXBC7YJUQYZCN29XQSJLE1",
+    "name": "owl bears",
+    "user": 20
+  }
+},
+{
+  "pk": 20,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "0SDWUL8LOYQ03EPZ52K97E52Q9YJQFH4",
+    "name": "deer pandas",
+    "user": 21
+  }
+},
+{
+  "pk": 21,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "XRMU7A04AD3U245T1NN2TTE0VG1NDL06",
+    "name": "bear rats",
+    "user": 22
+  }
+},
+{
+  "pk": 22,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "FB5PJ1R2SXY9CTSCRW5V8LTTYIQLJRHO",
+    "name": "monkey goats",
+    "user": 23
+  }
+},
+{
+  "pk": 23,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "KGW1IPDQ15U1PBYAYMHPFDVG0XLXRBQF",
+    "name": "cat eagles",
+    "user": 24
+  }
+},
+{
+  "pk": 24,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "HM4KDRP5KW7G513ONPTZBUTW6CCCKZEI",
+    "name": "crocodile snakes",
+    "user": 25
+  }
+},
+{
+  "pk": 25,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "9J0IV5MXHFWU20UF9QKFA3IYU63Z6CSM",
+    "name": "giraffe seals",
+    "user": 26
+  }
+},
+{
+  "pk": 26,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "WBMT8IZXOOFJ78E5MC1YRINB1WB7XSFW",
+    "name": "goat squirrels",
+    "user": 27
+  }
+},
+{
+  "pk": 27,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "5IMGOUN4APRI3XQXC64PHOC3DQQPNK5H",
+    "name": "kangaroo tigers",
+    "user": 28
+  }
+},
+{
+  "pk": 28,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "AU46ONSAR4ID46KPWMP8ZMEXREK0MMF1",
+    "name": "wolf wolfs",
+    "user": 29
+  }
+},
+{
+  "pk": 29,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "DNZA18V5PLU2A6EEXD9OX5904ZPWDSCR",
+    "name": "bee rats",
+    "user": 30
+  }
+},
+{
+  "pk": 30,
+  "model": "comp_auth.team",
+  "fields": {
+    "token": "SE1AEMPCWNHVSAQLJ62GVS0BBE3MJQTY",
+    "name": "fish elephants",
+    "user": 31
+  }
+}
+]

@@ -4,7 +4,8 @@ $ ->
 init = ->
   bindChallengeModals()
   $.get("/start")
-  setInterval(updateChals, 2000)
+  setInterval(updateChals, 5000)
+#  setInterval(updateChals, 2000)
 #  setInterval(cycleBackground, 150) # lol
 
 bindChallengeModals = ->
@@ -12,6 +13,7 @@ bindChallengeModals = ->
     chalId = $(this).data "id"
     $.get "/problem/#{chalId}", (data) ->
       $("#chal-problem-wrapper").html data
+      $("#submission_form").ajaxForm()
 
 updateChals = ->
   $.get "/update", (data) ->
@@ -52,7 +54,7 @@ setState = (progressBar, state) ->
   $(progressBar).addClass("progress-bar-#{state}")
 
 cycleBackground = ->
-  if $(this).css("background-color") == "green"
+  if document.body.style.getPropertyValue("background-color") == "green"
     document.body.style.background = "blue"
   else if document.body.style.getPropertyValue("background-color") == "blue"
     document.body.style.background = "red"

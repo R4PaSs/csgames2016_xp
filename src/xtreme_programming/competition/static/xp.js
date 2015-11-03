@@ -9,7 +9,7 @@
   init = function() {
     bindChallengeModals();
     $.get("/start");
-    return setInterval(updateChals, 2000);
+    return setInterval(updateChals, 5000);
   };
 
   bindChallengeModals = function() {
@@ -17,7 +17,8 @@
       var chalId;
       chalId = $(this).data("id");
       return $.get("/problem/" + chalId, function(data) {
-        return $("#chal-problem-wrapper").html(data);
+        $("#chal-problem-wrapper").html(data);
+        return $("#submission_form").ajaxForm();
       });
     });
   };
@@ -68,7 +69,7 @@
   };
 
   cycleBackground = function() {
-    if ($(this).css("background-color") === "green") {
+    if (document.body.style.getPropertyValue("background-color") === "green") {
       return document.body.style.background = "blue";
     } else if (document.body.style.getPropertyValue("background-color") === "blue") {
       return document.body.style.background = "red";
