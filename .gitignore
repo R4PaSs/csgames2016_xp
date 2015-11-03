@@ -59,3 +59,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# XP Specific
+*.sqlite
+media/submission/*

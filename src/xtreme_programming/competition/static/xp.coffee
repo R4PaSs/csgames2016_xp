@@ -13,7 +13,10 @@ bindChallengeModals = ->
     chalId = $(this).data "id"
     $.get "/problem/#{chalId}", (data) ->
       $("#chal-problem-wrapper").html data
-      $("#submission_form").ajaxForm()
+      $("#submission_form").ajaxForm( ->
+        $('#chalModal').modal('toggle')
+        setSolved(chalId)
+      )
 
 updateChals = ->
   $.get "/update", (data) ->
@@ -38,6 +41,10 @@ updateProgress = (chal) ->
   timeLeft = chalEnd - time
   percent = timeLeft / (chalLength * 60 * 1000) * 100
 
+  $(chal).find(".progress-bar").css("width", "#{percent}%")
+
+  if progressBar.hasClass('progress-bar-success')
+    return
   if percent <= -10
     return
   if percent <= 15
@@ -45,13 +52,16 @@ updateProgress = (chal) ->
   else if percent <= 50
     setState(progressBar, "warning")
 
-  $(chal).find(".progress-bar").css("width", "#{percent}%")
-
 setState = (progressBar, state) ->
   $(progressBar).removeClass("progress-bar-info")
   $(progressBar).removeClass("progress-bar-warning")
   $(progressBar).removeClass("progress-bar-danger")
   $(progressBar).addClass("progress-bar-#{state}")
+
+setSolved = (chalId) ->
+  chal = $("#chal-wrapper-#{chalId}")
+  progressBar = $(chal).find(".progress-bar")
+  setState(progressBar, "success")
 
 cycleBackground = ->
   if document.body.style.getPropertyValue("background-color") == "green"

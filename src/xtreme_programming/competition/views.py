@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import JsonResponse
 from django.shortcuts import render, render_to_response
 
-from .models import Challenge
+from .models import Challenge, Submission
 from .forms import SubmissionForm
 
 
@@ -64,9 +64,10 @@ def submit(request, cid):
         form = SubmissionForm(request.POST, request.FILES)
         if form.is_valid():
             if _valid_zip(form.cleaned_data['file']):
+                _save_submission(request, cid, form.cleaned_data)
+
                 return JsonResponse({"id": cid}, status=200)
-        else:
-            print(form.errors)
+
     return JsonResponse({"id": cid}, status=400)
 
 
@@ -115,3 +116,32 @@ def _check_open_challenges():
 
 def _valid_zip(infile):
     return os.path.splitext(infile.name)[1] == ".zip"
+
+
+def _save_submission(request, chalid, data):
+    sub = Submission()
+    sub.challenge_id = chalid
+    sub.time = datetime.datetime.now()
+    sub.comment = data['comment']
+    sub.team = request.user.team
+
+    timestr = sub.time.strftime('%H%M')
+    filepath = 'submission/%s/%s/%s.zip' % \
+               (sub.team.name, sub.challenge.title_EN, timestr)
+    filepath = os.path.join(settings.MEDIA_ROOT, filepath)
+    dirpath = os.path.dirname(filepath)
+
+    if not os.path.isdir(dirpath):
+        os.makedirs(dirpath)
+
+    with open(filepath, 'wb') as fd:
+        for chunk in data['file'].chunks():
+            fd.write(chunk)
+
+    readme_path = os.path.join(dirpath, "%s__README.txt" % timestr)
+    with open(readme_path, 'w') as fd:
+        fd.write(sub.comment)
+
+    sub.file = filepath
+
+    sub.save()

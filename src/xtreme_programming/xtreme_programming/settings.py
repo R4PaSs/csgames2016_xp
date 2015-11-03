@@ -117,6 +117,7 @@ STATICFILES_FINDERS = (
 MAX_USERS_PER_TEAM = 1
 OPEN_CHALLENGE_COUNT = 3
 CHAL_DIR = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'chal')
+MEDIA_ROOT = 'media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MESSAGE_TAGS = {
