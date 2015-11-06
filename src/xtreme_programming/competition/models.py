@@ -18,3 +18,16 @@ class Submission(models.Model):
     file = models.FileField()
     comment = models.TextField()
     team = models.ForeignKey(Team)
+
+
+class TeamEvent(models.Model):
+    team = models.OneToOneField(Team)
+    used = models.BooleanField(default=False)
+
+
+class Attack(models.Model):
+    attacker = models.ForeignKey(Team, related_name='attacks_out')
+    receiver = models.ForeignKey(Team, related_name='attacks_in')
+    attack_number = models.IntegerField()
+    started = models.BooleanField(default=False)
+    over = models.BooleanField(default=False)

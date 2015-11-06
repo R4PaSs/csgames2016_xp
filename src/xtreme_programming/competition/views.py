@@ -2,13 +2,19 @@ import datetime
 import os
 import time
 
+from random import randrange
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import JsonResponse
+from django.contrib import messages
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, render_to_response
 
-from .models import Challenge, Submission
+from comp_auth.models import Team
+
+from .models import Attack, Challenge, Submission, TeamEvent
 from .forms import SubmissionForm
+from .yolo import yolos
 
 
 NEXT_EXPIRE = None
@@ -26,10 +32,13 @@ def index(request):
                   context={'chals': chals})
 
 
-# @user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_superuser)
 def start(request):
-    initial_chals = Challenge.objects.order_by('?')\
-            [0:settings.OPEN_CHALLENGE_COUNT]
+
+    _init_cleanup()
+
+    initial_chals = Challenge.objects.order_by('?')
+    initial_chals = initial_chals[0:settings.OPEN_CHALLENGE_COUNT]
 
     chals = Challenge.objects.all()
     for chal in chals:
@@ -41,12 +50,33 @@ def start(request):
 
     return render_to_response('competition/index.html')
 
-
+@login_required()
 def update(request):
     _check_open_challenges()
-    return JsonResponse(_filter_chals())
+    data = {}
+    data['chals'] = _filter_chals()
+    events = _check_yolo_avail(request.user.team)
+    data['yolo_avail'] = True if events else False
 
+    current_attack = Attack.objects.filter(receiver=request.user.team,
+                                           over=False,
+                                           started=True).first()
+    if current_attack:
+        data['yolo'] = "continue"
+    else:
+        current_attack = Attack.objects.filter(receiver=request.user.team,
+                                               over=False,
+                                               started=False)
+        if current_attack:
+            current_attack = current_attack[0]
+            current_attack.started = True
+            current_attack.save()
+            attack_meta = yolos[current_attack.attack_number]
+            data['yolo'] = attack_meta['script']
 
+    return JsonResponse(data)
+
+@login_required()
 def problem(request, cid):
     context = {}
 
@@ -58,17 +88,54 @@ def problem(request, cid):
     return render(request, 'competition/problem.html',
                   context=context)
 
-
+@login_required()
 def submit(request, cid):
     if _is_open(cid):
         form = SubmissionForm(request.POST, request.FILES)
         if form.is_valid():
             if _valid_zip(form.cleaned_data['file']):
+                prev_subs = Submission.objects.filter(challenge__id=cid,
+                                                      team=request.user.team)
+                if not prev_subs:
+                    _create_event(request.user.team)
+                    _remove_attack(request.user.team)
                 _save_submission(request, cid, form.cleaned_data)
-
                 return JsonResponse({"id": cid}, status=200)
 
     return JsonResponse({"id": cid}, status=400)
+
+@login_required()
+def attack(request):
+    team = request.user.team
+    events = TeamEvent.objects.filter(team=team, used=False)
+    if events:
+
+        # Remove one Event for that team
+        used_event = events[0]
+        used_event.used = True
+        used_event.save()
+
+        rand_idx = randrange(0, len(yolos))
+        attack_meta = yolos[rand_idx]
+        if attack_meta['type'] == "distributed":
+            for recv in Team.objects.all():
+                atk = Attack(attacker=team,
+                             receiver=recv,
+                             attack_number=rand_idx)
+                atk.save()
+        elif attack_meta["type"] == "targeted":
+            recv = randrange(0, 2)
+            if recv == 0:
+                recv = team
+            else:
+                recv = Team.objects.all().order_by('?')[0]
+
+            atk = Attack(attacker=team,
+                         receiver=recv,
+                         attack_number=rand_idx)
+            atk.save()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 
 def _is_open(id):
@@ -83,6 +150,12 @@ def _start_challenge(chal):
     delta = datetime.timedelta(minutes=chal.length)
     chal.end = datetime.datetime.now() + delta
     chal.save()
+
+
+def _init_cleanup():
+    Submission.objects.all().delete()
+    TeamEvent.objects.all().delete()
+    Attack.objects.all().delete()
 
 
 def _filter_chals():
@@ -145,3 +218,24 @@ def _save_submission(request, chalid, data):
     sub.file = filepath
 
     sub.save()
+    messages.add_message(request, messages.SUCCESS, "Submission successful.")
+
+
+def _create_event(team):
+    event = TeamEvent(team=team)
+    event.save()
+
+
+def _check_yolo_avail(team):
+    events = TeamEvent.objects.filter(team=team, used=False)
+    if events:
+        return events[0]
+    return False
+
+
+def _remove_attack(team):
+    att = Attack.objects.filter(receiver=team, started=True, over=False)
+    if att:
+        att = att[0]
+        att.over = True
+        att.save()

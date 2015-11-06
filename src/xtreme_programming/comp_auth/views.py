@@ -53,7 +53,9 @@ def _still_available(team_token):
 
     if spots_left > 0:
         for user in users:
-            if user.team.token == team_token:
+            if user.is_superuser:
+                continue
+            elif user.team.token == team_token:
                 spots_left -= 1
 
     return spots_left > 0

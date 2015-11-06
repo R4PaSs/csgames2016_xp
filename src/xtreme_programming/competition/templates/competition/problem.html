@@ -3,5 +3,7 @@
 {{ chal.description_EN|markdown }}
 {{ chal.description_FR|markdown }}
 
-{% crispy form %}
+{% if form %}
+    {% crispy form %}
+{% endif %}
 

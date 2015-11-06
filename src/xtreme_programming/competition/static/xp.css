@@ -1,0 +1,12 @@
+.btn-xlg {
+    padding: 50px 150px;
+    font-size: 26px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+#yoloContainer {
+    padding: 30px 0px;
+}

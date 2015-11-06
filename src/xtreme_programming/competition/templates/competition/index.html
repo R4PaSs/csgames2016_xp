@@ -2,7 +2,16 @@
 {% load staticfiles %}
 {% load markdown_deux_tags %}
 
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'xp.css' %}" />
+{% endblock %}
+
 {% block content %}
+  <div id="yoloContainer" class="col-lg-12 well well-lg text-center" style="display:none;">
+    <div id="yoloButton" class="btn btn-xlg btn-danger">Very Intriguing Button</div>
+  </div>
+
   {% for chal in chals %}
     <div id="chal-wrapper-{{ chal.id }}" class="chal-wrapper col-md-12" data-id="{{ chal.id }}" data-end="{{ chal.end }}" data-title="{{ chal.title }}" data-length="{{ chal.length }}" data-toggle="modal" data-target="#chalModal">
       <div class="chal-hud col-md-12">

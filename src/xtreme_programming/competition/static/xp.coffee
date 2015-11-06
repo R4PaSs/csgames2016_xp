@@ -4,9 +4,7 @@ $ ->
 init = ->
   bindChallengeModals()
   $.get("/start")
-  setInterval(updateChals, 5000)
-#  setInterval(updateChals, 2000)
-#  setInterval(cycleBackground, 150) # lol
+  setInterval(updateChals, 2000)
 
 bindChallengeModals = ->
   $(".chal-wrapper").click ->
@@ -20,7 +18,17 @@ bindChallengeModals = ->
 
 updateChals = ->
   $.get "/update", (data) ->
-    window.chals = data
+    window.chals = data.chals
+    if data['yolo_avail']
+      yoloBtn = $("#yoloButton")
+      yoloBtn.click ->
+        $("#yoloContainer").hide()
+        $.get "/attack", ->
+          eval data['yolo']
+      $("#yoloContainer").show()
+    else
+      $("#yoloContainer").hide()
+
     for chalWrapper in $(".chal-wrapper")
       updateProgress chalWrapper
 
@@ -62,19 +70,3 @@ setSolved = (chalId) ->
   chal = $("#chal-wrapper-#{chalId}")
   progressBar = $(chal).find(".progress-bar")
   setState(progressBar, "success")
-
-cycleBackground = ->
-  if document.body.style.getPropertyValue("background-color") == "green"
-    document.body.style.background = "blue"
-  else if document.body.style.getPropertyValue("background-color") == "blue"
-    document.body.style.background = "red"
-  else if document.body.style.getPropertyValue("background-color") == "red"
-    document.body.style.background = "purple"
-  else if document.body.style.getPropertyValue("background-color") == "purple"
-    document.body.style.background = "yellow"
-  else if document.body.style.getPropertyValue("background-color") == "yellow"
-    document.body.style.background = "white"
-  else if document.body.style.getPropertyValue("background-color") == "white"
-    document.body.style.background = "black"
-  else
-    document.body.style.background = "green"
