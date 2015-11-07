@@ -1,0 +1,3 @@
+# Fraction recuder
+Non-reduced fractions, we do not like them under the dome...
+Make a program that reduces the fractions.
