@@ -1,0 +1,3 @@
+# Reducteur de fraction
+Les fractions non reduite, sous le dome, on n'aime pas ça...
+Faite une programme qui reduit les fractions.
