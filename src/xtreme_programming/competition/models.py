@@ -21,7 +21,7 @@ class Submission(models.Model):
 
 
 class TeamEvent(models.Model):
-    team = models.OneToOneField(Team)
+    team = models.ForeignKey(Team)
     used = models.BooleanField(default=False)
 
 
