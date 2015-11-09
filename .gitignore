@@ -61,5 +61,5 @@ docs/_build/
 target/
 
 # XP Specific
-*.sqlite
+*.sqlite3
 media/submission/*
