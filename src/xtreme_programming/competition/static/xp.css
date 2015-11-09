@@ -16,7 +16,7 @@
 }
 
 .blink {
-    animation-duration: 0.2s;
+    animation-duration: 1s;
     animation-name: blink;
     animation-iteration-count: infinite;
     animation-direction: alternate;

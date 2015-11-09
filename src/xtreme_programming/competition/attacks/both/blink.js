@@ -1,1 +1,1 @@
-$("div").addClass("blink");
+$(".modal").addClass("blink");
