@@ -4,7 +4,7 @@ $ ->
 init = ->
   bindChallengeModals()
   $.get("/start")
-  setInterval(updateChals, 2000)
+  setInterval(updateChals, 1000)
 
 bindChallengeModals = ->
   $(".chal-wrapper").click ->
@@ -23,11 +23,13 @@ updateChals = ->
       yoloBtn = $("#yoloButton")
       yoloBtn.click ->
         $("#yoloContainer").hide()
-        $.get "/attack", ->
-          eval data['yolo']
+        $.get "/attack"
       $("#yoloContainer").show()
     else
       $("#yoloContainer").hide()
+
+    if !!data["yolo"]
+      eval data['yolo']
 
     for chalWrapper in $(".chal-wrapper")
       updateProgress chalWrapper
@@ -70,3 +72,6 @@ setSolved = (chalId) ->
   chal = $("#chal-wrapper-#{chalId}")
   progressBar = $(chal).find(".progress-bar")
   setState(progressBar, "success")
+
+lol = () ->
+  undefined

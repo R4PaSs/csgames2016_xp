@@ -48,7 +48,7 @@ def start(request):
     for chal in initial_chals:
         _start_challenge(chal)
 
-    return render_to_response('competition/index.html')
+    return render_to_response('competition/start.html')
 
 @login_required()
 def update(request):
@@ -58,21 +58,15 @@ def update(request):
     events = _check_yolo_avail(request.user.team)
     data['yolo_avail'] = True if events else False
 
-    current_attack = Attack.objects.filter(receiver=request.user.team,
-                                           over=False,
-                                           started=True).first()
-    if current_attack:
-        data['yolo'] = "continue"
-    else:
-        current_attack = Attack.objects.filter(receiver=request.user.team,
-                                               over=False,
-                                               started=False)
-        if current_attack:
-            current_attack = current_attack[0]
-            current_attack.started = True
-            current_attack.save()
-            attack_meta = yolos[current_attack.attack_number]
-            data['yolo'] = attack_meta['script']
+    current_attacks = Attack.objects.filter(receiver=request.user.team,
+                                            over=False)
+
+    data['yolo'] = ""
+    for att in current_attacks:
+        attack_meta = yolos[att.attack_number]
+        data['yolo'] += attack_meta['script']
+        att.started = True
+        att.save()
 
     return JsonResponse(data)
 

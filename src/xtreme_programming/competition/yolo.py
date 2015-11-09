@@ -1,26 +1,56 @@
-script1 = """
-alert("YOLO 1");
-"""
-script2 = """
-alert("YOLO 1");
-"""
-script3 = """
-alert("YOLO 1");
-"""
+import os
 
-yolo1 = {
-    "type": "targeted",
-    "script": script1
-}
+from django.conf import settings
 
-yolo2 = {
-    "type": "distributed",
-    "script": script2
-}
+DEBUG_ATTACK = None
 
-yolo3 = {
-    "type": "targeted",
-    "script": script3
-}
+ATTACK_DIR = os.path.join(settings.BASE_DIR,
+                          "competition",
+                          "attacks")
 
-yolos = [yolo1, yolo2, yolo3]
+
+yolos = []
+for script in os.listdir(os.path.join(ATTACK_DIR, "both")):
+    with open(os.path.join(ATTACK_DIR, "both", script), 'r') as fd:
+        script_content = fd.read()
+        attack_meta = {
+            "type": "distributed",
+            "script": script_content
+        }
+        yolos.append(attack_meta)
+
+        attack_meta = {
+            "type": "targeted",
+            "script": script_content
+        }
+        yolos.append(attack_meta)
+
+
+for script in os.listdir(os.path.join(ATTACK_DIR, "distributed")):
+    with open(os.path.join(ATTACK_DIR, "distributed", script), 'r') as fd:
+        script_content = fd.read()
+        attack_meta = {
+            "type": "distributed",
+            "script": script_content
+        }
+        yolos.append(attack_meta)
+
+
+for script in os.listdir(os.path.join(ATTACK_DIR, "targeted")):
+    with open(os.path.join(ATTACK_DIR, "targeted", script), 'r') as fd:
+        script_content = fd.read()
+        attack_meta = {
+            "type": "targeted",
+            "script": script_content
+        }
+        yolos.append(attack_meta)
+
+
+if DEBUG_ATTACK:
+    with open(DEBUG_ATTACK, 'r') as fd:
+        script_content = fd.read()
+        attack_meta = {
+            "type": "distributed",
+            "script": script_content
+        }
+    yolos = [attack_meta]

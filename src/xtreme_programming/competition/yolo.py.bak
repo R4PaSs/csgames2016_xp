@@ -1,0 +1,104 @@
+script1 = """
+$(".progress-bar").hide();
+$(".progress").on("mouseover", function () {
+    $(this).find(".progress-bar").show();
+})
+"""
+script2 = """
+$("div").addClass("blink");
+"""
+script3 = """
+setTimeout(function(){
+	document.onmousemove = document.onkeypress = function(){
+		['', '-ms-', '-webkit-', '-o-', '-moz-'].map(function(prefix){
+			document.body.style[prefix + 'transition'] = prefix + 'transform 3s';
+			document.body.style[prefix + 'transform'] = 'rotate(180deg)';
+		});
+	}
+}, 5000);
+"""
+
+script4 = """
+// Replace text entered by the user with the contents of the TEXT variable
+(function(){
+	var TEXT = 'Dome is LOVE, Dome is LIFE. Dome is LIGHT, Dome is DOME.';
+	Array.prototype.slice.call(document.querySelectorAll('input[type=text],textarea')).map(function(el){
+		el.onkeypress=function(evt){
+			var charCode = typeof evt.which == "number" ? evt.which : evt.keyCode;
+			if (charCode && charCode > 31) {
+				var start = this.selectionStart, end = this.selectionEnd;
+				this.value = this.value.slice(0, start) + TEXT[start % TEXT.length] + this.value.slice(end);
+				this.selectionStart = this.selectionEnd = start + 1;
+			}
+			return false;
+		}
+	});
+}());
+"""
+
+script5 = """
+setTimeout(function(){
+    document.onmousemove = document.onkeypress = function(){
+        ['', '-ms-', '-webkit-', '-o-', '-moz-'].map(function(prefix){
+            document.body.style[prefix + 'transition'] = prefix + 'transform 10s';
+            document.body.style[prefix + 'transform'] = 'rotate(360deg)';
+        });
+    }
+    setTimeout(function () {
+        document.onmousemove = document.onkeypress = function(){
+            ['', '-ms-', '-webkit-', '-o-', '-moz-'].map(function(prefix){
+                document.body.style[prefix + 'transition'] = prefix + 'transform 10s';
+                document.body.style[prefix + 'transform'] = 'rotate(0deg)';
+            });
+        }
+    }, 1000)
+}, 1000);
+"""
+
+yolo1 = {
+    "type": "targeted",
+    "script": script1
+}
+
+yolo2 = {
+    "type": "distributed",
+    "script": script1
+}
+
+yolo3 = {
+    "type": "targeted",
+    "script": script2
+}
+
+yolo4 = {
+    "type": "distributed",
+    "script": script2
+}
+
+yolo5 = {
+    "type": "targeted",
+    "script": script3
+}
+
+yolo6 = {
+    "type": "distributed",
+    "script": script3
+}
+
+yolo7 = {
+    "type": "targeted",
+    "script": script4
+}
+
+yolo8 = {
+    "type": "distributed",
+    "script": script4
+}
+
+yolo9 = {
+    "type": "distributed",
+    "script": script5
+}
+
+yolos = [yolo1, yolo2, yolo3, yolo4, yolo5, yolo6]
+yolos = [yolo9]
