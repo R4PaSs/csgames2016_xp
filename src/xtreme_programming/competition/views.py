@@ -61,12 +61,13 @@ def update(request):
     current_attacks = Attack.objects.filter(receiver=request.user.team,
                                             over=False)
 
-    data['yolo'] = ""
-    for att in current_attacks:
-        attack_meta = yolos[att.attack_number]
-        data['yolo'] += attack_meta['script']
-        att.started = True
-        att.save()
+    if current_attacks:
+        data['yolo'] = ""
+        for att in current_attacks:
+            attack_meta = yolos[att.attack_number]
+            data['yolo'] += attack_meta['script']
+            att.started = True
+            att.save()
 
     return JsonResponse(data)
 

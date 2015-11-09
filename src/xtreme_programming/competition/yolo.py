@@ -2,11 +2,12 @@ import os
 
 from django.conf import settings
 
-DEBUG_ATTACK = None
-
 ATTACK_DIR = os.path.join(settings.BASE_DIR,
                           "competition",
                           "attacks")
+
+DEBUG_ATTACK = None
+# DEBUG_ATTACK = os.path.join(ATTACK_DIR, "targeted", "kotamari.js")
 
 
 yolos = []
