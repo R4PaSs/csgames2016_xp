@@ -1,2 +1,2 @@
 # Multi-Languages
-Write ONE (1) program compiling in three languages.
+Write ONE (1) program that compiles in three languages.
