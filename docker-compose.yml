@@ -1,0 +1,12 @@
+db:
+    image: postgres
+    volumes:
+        - data:/var/lib/postgres/data
+xp:
+    build: .
+    ports:
+        - "8000:8000"
+    volumes:
+        - .:/opt/xp
+    links:
+        - db
