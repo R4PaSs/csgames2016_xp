@@ -230,7 +230,14 @@ def _check_yolo_avail(team):
 
 def _remove_attack(team):
     att = Attack.objects.filter(receiver=team, started=True, over=False)
-    if att:
+    if len(att) == 1:
         att = att[0]
         att.over = True
         att.save()
+    elif len(att) > 1:
+        att_num = len(att)
+        num_remove = att_num * 2 / 3
+        att = att[0:num_remove - 1]
+        for one_att in att:
+            one_att.over = True
+            one_att.save()
