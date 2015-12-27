@@ -9,7 +9,8 @@
   init = function() {
     bindChallengeModals();
     $.get("/start");
-    return setInterval(updateChals, 1000);
+    setInterval(updateChals, 5000);
+    return window.currentZoom = 1.0;
   };
 
   bindChallengeModals = function() {

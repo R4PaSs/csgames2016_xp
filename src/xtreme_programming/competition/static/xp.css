@@ -36,3 +36,8 @@
         opacity: 0;
     }
 }
+
+.grow {
+    transition: all 1s ease-in-out;
+    transform: scale(1.1);
+}
