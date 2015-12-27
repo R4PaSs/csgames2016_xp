@@ -4,7 +4,8 @@ $ ->
 init = ->
   bindChallengeModals()
   $.get("/start")
-  setInterval(updateChals, 1000)
+  setInterval(updateChals, 5000)
+  window.currentZoom = 1.0;
 
 bindChallengeModals = ->
   $(".chal-wrapper").click ->

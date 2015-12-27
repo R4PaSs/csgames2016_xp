@@ -7,7 +7,7 @@ ATTACK_DIR = os.path.join(settings.BASE_DIR,
                           "attacks")
 
 DEBUG_ATTACK = None
-# DEBUG_ATTACK = os.path.join(ATTACK_DIR, "targeted", "kotamari.js")
+DEBUG_ATTACK = os.path.join(ATTACK_DIR, "both", "zoom.js")
 
 
 yolos = []
