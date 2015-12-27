@@ -12,3 +12,4 @@ pickleshare==0.5
 ptyprocess==0.5
 simplegeneric==0.8.1
 traitlets==4.0.0
+psycopg2

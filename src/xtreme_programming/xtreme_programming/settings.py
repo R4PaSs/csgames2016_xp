@@ -83,8 +83,11 @@ WSGI_APPLICATION = 'xtreme_programming.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
@@ -114,7 +117,7 @@ STATICFILES_FINDERS = (
 )
 
 # Custom settings
-MAX_USERS_PER_TEAM = 1
+MAX_USERS_PER_TEAM = 5
 OPEN_CHALLENGE_COUNT = 3
 CHAL_DIR = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'chal')
 MEDIA_ROOT = 'media'

@@ -1,7 +1,7 @@
 all: build run
 
 build:
-	docker build -t xp .
+	docker build -t xp containers/xp
 
 run:
 	docker run -d -t --name=xp -p 8000:8000 xp
