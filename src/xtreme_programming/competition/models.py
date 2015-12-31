@@ -26,8 +26,17 @@ class TeamEvent(models.Model):
 
 
 class Attack(models.Model):
-    attacker = models.ForeignKey(Team, related_name='attacks_out')
-    receiver = models.ForeignKey(Team, related_name='attacks_in')
+    attacker = models.ForeignKey(Team, related_name='attacker')
+    receiver = models.ForeignKey(Team, related_name='attacked')
     attack_number = models.IntegerField()
+    attack_name = models.CharField(max_length=64)
+    distributed = models.BooleanField()
     started = models.BooleanField(default=False)
     over = models.BooleanField(default=False)
+
+    def __repr__(self):
+        if self.distributed:
+            return "Distributed %s from %s" % (self.attack_name, self.attacker)
+        else:
+            return "%s from %s to %s" % (self.attack_name, self.attacker,
+                                         self.receiver)

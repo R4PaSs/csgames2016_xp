@@ -7,7 +7,7 @@ ATTACK_DIR = os.path.join(settings.BASE_DIR,
                           "attacks")
 
 DEBUG_ATTACK = None
-DEBUG_ATTACK = os.path.join(ATTACK_DIR, "both", "zoom.js")
+# DEBUG_ATTACK = os.path.join(ATTACK_DIR, "both", "zoom.js")
 
 
 yolos = []
@@ -16,13 +16,15 @@ for script in os.listdir(os.path.join(ATTACK_DIR, "both")):
         script_content = fd.read()
         attack_meta = {
             "type": "distributed",
-            "script": script_content
+            "script": script_content,
+            "name": script
         }
         yolos.append(attack_meta)
 
         attack_meta = {
             "type": "targeted",
-            "script": script_content
+            "script": script_content,
+            "name": script
         }
         yolos.append(attack_meta)
 
@@ -32,7 +34,8 @@ for script in os.listdir(os.path.join(ATTACK_DIR, "distributed")):
         script_content = fd.read()
         attack_meta = {
             "type": "distributed",
-            "script": script_content
+            "script": script_content,
+            "name": script
         }
         yolos.append(attack_meta)
 
@@ -42,7 +45,8 @@ for script in os.listdir(os.path.join(ATTACK_DIR, "targeted")):
         script_content = fd.read()
         attack_meta = {
             "type": "targeted",
-            "script": script_content
+            "script": script_content,
+            "name": script
         }
         yolos.append(attack_meta)
 
@@ -52,6 +56,7 @@ if DEBUG_ATTACK:
         script_content = fd.read()
         attack_meta = {
             "type": "distributed",
-            "script": script_content
+            "script": script_content,
+            "name": script
         }
     yolos = [attack_meta]

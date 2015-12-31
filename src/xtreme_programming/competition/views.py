@@ -116,7 +116,9 @@ def attack(request):
             for recv in Team.objects.all():
                 atk = Attack(attacker=team,
                              receiver=recv,
-                             attack_number=rand_idx)
+                             attack_number=rand_idx,
+                             distributed=True,
+                             attack_name=attack_meta["name"])
                 atk.save()
         elif attack_meta["type"] == "targeted":
             recv = randrange(0, 2)
@@ -127,7 +129,9 @@ def attack(request):
 
             atk = Attack(attacker=team,
                          receiver=recv,
-                         attack_number=rand_idx)
+                         attack_number=rand_idx,
+                         distributed=False,
+                         attack_name=attack_meta["name"])
             atk.save()
         return HttpResponse(status=200)
     return HttpResponse(status=400)

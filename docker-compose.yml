@@ -5,7 +5,7 @@ db:
 xp:
     build: .
     ports:
-        - "8000:8000"
+        - "8000:80"
     volumes:
         - .:/opt/xp
     links:
