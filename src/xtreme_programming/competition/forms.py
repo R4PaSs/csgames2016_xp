@@ -13,7 +13,10 @@ class SubmissionForm(forms.ModelForm):
         fields = ['challenge', 'time', 'file', 'comment', 'team']
         exclude = ('challenge', 'time', 'team')
         help_texts = {
-            "file": "*.zip"
+            "file": "*.zip",
+        }
+        labels = {
+            "comment": "README"
         }
 
     def __init__(self, *args, **kwargs):

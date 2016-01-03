@@ -26,9 +26,19 @@ def login_view(request):
                     login(request, user)
                     return redirect('/')
     form = LoginForm()
+
+    if settings.DEBUG:
+        users = User.objects.all()
+        token = COMPETITION_TOKEN
+    else:
+        users = None
+        token = None
+
     return render(request,
                   'comp_auth/login.html',
-                  context={"form": form})
+                  context={"users_list": users,
+                           "token": token,
+                           "form": form})
 
 
 def logout_view(request):

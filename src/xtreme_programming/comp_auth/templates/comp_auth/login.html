@@ -2,6 +2,19 @@
 
 {% load crispy_forms_tags %}
 
+
 {% block content %}
-    {% crispy form %}
+  {% crispy form %}
+  {% if users_list %}
+    Competition token:
+    <pre>{{ token }}</pre>
+
+    User logins:
+    <pre>
+{% for u in users_list %}
+{{ u.team.name }}
+{{ u.team.token }}
+{% endfor %}
+    </pre>
+  {% endif %}
 {% endblock %}

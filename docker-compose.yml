@@ -1,12 +1,21 @@
-db:
+dbdata:
     image: postgres
     volumes:
-        - data:/var/lib/postgres/data
+        - /var/lib/postgresql/data/
+        - /opt/xp/src/xtreme_programming/media/submission
+db:
+    image: postgres
+    environment:
+        - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes_from:
+        - dbdata
 xp:
     build: .
     ports:
         - "8000:80"
     volumes:
         - .:/opt/xp
+    volumes_from:
+        - dbdata
     links:
         - db
