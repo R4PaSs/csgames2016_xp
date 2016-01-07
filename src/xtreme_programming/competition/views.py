@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 import time
 
@@ -23,13 +24,19 @@ NEXT_EXPIRE = None
 @login_required()
 def index(request):
     chals = Challenge.objects.all()
+    completed = Challenge.objects.filter(submission__team=request.user.team)
+    failed = []
 
     for chal in chals:
         if chal.end:
+            if chal.end < datetime.datetime.now():
+                failed.append(chal)
             chal.end = int(time.mktime(chal.end.timetuple())) * 1000
 
     return render(request, 'competition/index.html',
-                  context={'chals': chals})
+                  context={'chals': chals,
+                           'completed': completed,
+                           'failed': failed})
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -50,11 +57,12 @@ def start(request):
 
     return render_to_response('competition/start.html')
 
+
 @login_required()
 def update(request):
     _check_open_challenges()
     data = {}
-    data['chals'] = _filter_chals()
+    data['chals'] = _filter_chals(request.user.team)
     events = _check_yolo_avail(request.user.team)
     data['yolo_avail'] = True if events else False
 
@@ -71,6 +79,7 @@ def update(request):
 
     return JsonResponse(data)
 
+
 @login_required()
 def problem(request, cid):
     context = {}
@@ -82,6 +91,7 @@ def problem(request, cid):
 
     return render(request, 'competition/problem.html',
                   context=context)
+
 
 @login_required()
 def submit(request, cid):
@@ -98,6 +108,7 @@ def submit(request, cid):
                 return JsonResponse({"id": cid}, status=200)
 
     return JsonResponse({"id": cid}, status=400)
+
 
 @login_required()
 def attack(request):
@@ -137,6 +148,81 @@ def attack(request):
     return HttpResponse(status=400)
 
 
+@user_passes_test(lambda u: u.is_superuser)
+def monitor(request):
+    teams = Team.objects.all().order_by('name')
+    team_info = []
+
+    color_palette = ["#67DB96",
+                     "#D14DE0",
+                     "#DF4A2A",
+                     "#6C9BD1",
+                     "#D0D73A",
+                     "#82724C",
+                     "#DB3878",
+                     "#DFA035",
+                     "#7AE42C",
+                     "#CB88DA",
+                     "#52A335",
+                     "#54927D",
+                     "#D5C97B",
+                     "#C0D5DC",
+                     "#66DFCE",
+                     "#A67076",
+                     "#8A69E3",
+                     "#D8AED0",
+                     "#D5926D",
+                     "#93872F",
+                     "#C1E2B0",
+                     "#4B7631",
+                     "#677A87",
+                     "#C36595",
+                     "#D744B0",
+                     "#5F7FDB",
+                     "#C9B6A0",
+                     "#D0555D",
+                     "#B76130",
+                     "#766B9F",
+                     "#B3D866",
+                     "#63B9D0",
+                     "#6BE261",
+                     "#9654AF",
+                     "#71A164"]
+
+    for idx, team in enumerate(teams):
+        info = {
+            'id': team.id,
+            'name': team.name,
+            'color': color_palette[idx % len(color_palette)]
+        }
+        team_info.append(info)
+
+    return render(request, 'competition/monitor.html',
+                  context={'team_info': json.dumps(team_info)})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def update_monitor(request):
+
+    data = {'attacks': []}
+    attacks = Attack.objects.filter(over=False, started=True).order_by('id')
+
+    for attack in attacks:
+
+        att_dict = {
+            'attacker': attack.attacker_id,
+            'attacker_name': attack.attacker.name,
+            'receiver': attack.receiver_id,
+            'receiver_name': attack.receiver.name,
+            'name': attack.attack_name,
+            'distributed': attack.distributed
+        }
+
+        data['attacks'].append(att_dict)
+
+    return JsonResponse(data)
+
+
 def _is_open(id):
     chal = Challenge.objects.get(pk=id)
     if chal.end:
@@ -157,18 +243,25 @@ def _init_cleanup():
     Attack.objects.all().delete()
 
 
-def _filter_chals():
+def _filter_chals(team):
     chals = Challenge.objects.all()
+    submitted = Challenge.objects.filter(submission__team=team)
     filtered = {}
     for chal in chals:
         js_end = None
+
         if chal.end:
             js_end = int(time.mktime(chal.end.timetuple())) * 1000
 
         fchal = {
             "id": chal.id,
-            "end": js_end
+            "end": js_end,
+            "submitted": False
         }
+
+        if chal in submitted:
+            fchal["submitted"] = True
+
         filtered[chal.id] = fchal
 
     return filtered
@@ -217,7 +310,7 @@ def _save_submission(request, chalid, data):
     sub.file = filepath
 
     sub.save()
-    messages.add_message(request, messages.SUCCESS, "Submission successful.")
+    # messages.add_message(request, messages.SUCCESS, "Submission successful.")
 
 
 def _create_event(team):

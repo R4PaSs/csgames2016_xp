@@ -17,14 +17,14 @@ for script in os.listdir(os.path.join(ATTACK_DIR, "both")):
         attack_meta = {
             "type": "distributed",
             "script": script_content,
-            "name": script
+            "name": script[:-3]
         }
         yolos.append(attack_meta)
 
         attack_meta = {
             "type": "targeted",
             "script": script_content,
-            "name": script
+            "name": script[:-3]
         }
         yolos.append(attack_meta)
 
@@ -35,7 +35,7 @@ for script in os.listdir(os.path.join(ATTACK_DIR, "distributed")):
         attack_meta = {
             "type": "distributed",
             "script": script_content,
-            "name": script
+            "name": script[:-3]
         }
         yolos.append(attack_meta)
 
@@ -46,7 +46,7 @@ for script in os.listdir(os.path.join(ATTACK_DIR, "targeted")):
         attack_meta = {
             "type": "targeted",
             "script": script_content,
-            "name": script
+            "name": script[:-3]
         }
         yolos.append(attack_meta)
 
@@ -57,6 +57,6 @@ if DEBUG_ATTACK:
         attack_meta = {
             "type": "distributed",
             "script": script_content,
-            "name": script
+            "name": script[:-3]
         }
     yolos = [attack_meta]

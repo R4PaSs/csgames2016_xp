@@ -15,6 +15,7 @@ bindChallengeModals = ->
       $("#submission_form").ajaxForm( ->
         $('#chalModal').modal('toggle')
         setSolved(chalId)
+        $.refresh()
       )
 
 updateChals = ->
@@ -25,6 +26,7 @@ updateChals = ->
       yoloBtn.click ->
         $("#yoloContainer").hide()
         $.get "/attack"
+        $.refresh()
       $("#yoloContainer").show()
     else
       $("#yoloContainer").hide()
@@ -42,11 +44,15 @@ updateProgress = (chal) ->
 
   # From dynamic json
   chalEnd = window.chals[chalId]["end"]
+  chalSubmitted = window.chals[chalId]["submitted"]
 
   progressBar = $(chal).find(".progress-bar")
   if !chalEnd
     progressBar.css("width", "0%")
     return
+
+  if chalSubmitted == true
+    setState(progressBar, "success")
 
   time = new Date().getTime()
   timeLeft = chalEnd - time

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load markdown_deux_tags %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'xp.css' %}" />
+    <style>
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="attackContainer">
+        <div class="well" id="dummyWell"></div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'monitor.js' %}"></script>
+  <script type="text/javascript" src="{% static 'jquery.form.min.js' %}"></script>
+  <script type="text/javascript">
+    window.teams = {{ team_info|safe }};
+  </script>
+{% endblock %}

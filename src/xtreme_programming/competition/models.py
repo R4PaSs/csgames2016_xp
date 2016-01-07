@@ -34,9 +34,12 @@ class Attack(models.Model):
     started = models.BooleanField(default=False)
     over = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         if self.distributed:
-            return "Distributed %s from %s" % (self.attack_name, self.attacker)
+            return "Distributed %s from %s" % (self.attack_name, self.attacker.name)
         else:
-            return "%s from %s to %s" % (self.attack_name, self.attacker,
-                                         self.receiver)
+            return "%s from %s to %s" % (self.attack_name, self.attacker.name,
+                                         self.receiver.name)

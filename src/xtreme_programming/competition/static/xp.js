@@ -21,7 +21,8 @@
         $("#chal-problem-wrapper").html(data);
         return $("#submission_form").ajaxForm(function() {
           $('#chalModal').modal('toggle');
-          return setSolved(chalId);
+          setSolved(chalId);
+          return $.refresh();
         });
       });
     });
@@ -35,7 +36,8 @@
         yoloBtn = $("#yoloButton");
         yoloBtn.click(function() {
           $("#yoloContainer").hide();
-          return $.get("/attack");
+          $.get("/attack");
+          return $.refresh();
         });
         $("#yoloContainer").show();
       } else {
@@ -55,14 +57,18 @@
   };
 
   updateProgress = function(chal) {
-    var chalEnd, chalId, chalLength, percent, progressBar, time, timeLeft;
+    var chalEnd, chalId, chalLength, chalSubmitted, percent, progressBar, time, timeLeft;
     chalId = $(chal).data("id");
     chalLength = $(chal).data("length");
     chalEnd = window.chals[chalId]["end"];
+    chalSubmitted = window.chals[chalId]["submitted"];
     progressBar = $(chal).find(".progress-bar");
     if (!chalEnd) {
       progressBar.css("width", "0%");
       return;
+    }
+    if (chalSubmitted === true) {
+      setState(progressBar, "success");
     }
     time = new Date().getTime();
     timeLeft = chalEnd - time;
