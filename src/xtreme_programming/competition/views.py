@@ -44,7 +44,7 @@ def start(request):
 
     _init_cleanup()
 
-    initial_chals = Challenge.objects.order_by('?')
+    initial_chals = Challenge.objects.order_by('id')
     initial_chals = initial_chals[0:settings.OPEN_CHALLENGE_COUNT]
 
     chals = Challenge.objects.all()
@@ -273,7 +273,7 @@ def _check_open_challenges():
     if open_chals < settings.OPEN_CHALLENGE_COUNT:
         try:
             new_chal = Challenge.objects.filter(end__isnull=True)\
-                .order_by('?')[0]
+                .order_by('id')[0]
             _start_challenge(new_chal)
         except:
             pass
