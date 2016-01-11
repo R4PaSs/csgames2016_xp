@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1>Xtreme Programming</h1>
+        <p>Welcome the XP Competition! Here is where you will find the everything you need to know to participate.</p>
+        <p>Bienvenue à la compétition d'XP! Ici vous trouverez les informations nécessaires pour participer à cette épreuve.</p>
+    </div>
+
+    <h3>What you will need:</h3>
+    <ul>
+        <li>Team Token</li>
+        <li>2 Participants</li>
+    </ul>
+
+    <h3>The Event</h3>
+    <p>
+        Many tasks have been gathered to help our judges evaluate your problem solving skills, speed and creativity.
+        You will have a set amount of time to solve three tasks simultaneously. Each task will be presented to you in this manner:
+
+    <div class="chal-wrapper col-md-12" data-submitted="false">
+      <div class="chal-hud col-md-12 col-sm-12">
+        <span class="chal-icon col-md-2 col-sm-2">Title Hint</span>
+        <span class="chal-progress col-md-8 col-sm-8">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+          </div>
+        </span>
+        <span class="chal-status col-md-1 col-sm-1 text-center"><i class="glyphicon glyphicon-ok"></i></span>
+        <span class="chal-time col-md-1 col-sm-1">5 min</span>
+      </div>
+    </div>
+
+        The progress bar shows you the remaining time to submit a task. Once a task is submitted, the progress bar will turn green.
+        Whenever a task expires, a new one will open. An icon on the right side will indicate if you have successfully submitted a solution to a challenge before it expires.
+    </p>
+
+    <h3>The Tasks</h3>
+    <p>
+        You will have to solve these tasks as fast as possible and solve as many as you can during the given time for each of them.
+        Each task submission will be evaluated by our judges based on your solution's correctness, originality and cleverness.
+    </p>
+    <p>
+        To attempt a task, click on its progress bar. This will open up that task's details. To submit you solution, create a zip
+        archive of your solutions's source code. Upload that *.zip file on that challenge's detail page and write an appropriate ReadMe.
+        We will need to know how to run your code and if there is anything special or clever in your approach.
+    </p>
+    <p>
+        Successfully submitting a solution to a task will unlock an button. Unfortunately, we are not allowed to disclose what this
+        button does for now. We were hoping you would find out by yourselves.
+    </p>
+
+    <h3>The Tips</h3>
+    <ul>
+        <li>You are allowed to submit more than once per task. Although it will not unlock more buttons, it will allow you to perfect your solutions if needed.</li>
+        <li>Refresh the page often. Trust the empire on this.</li>
+        <li>Be very clever?</li>
+    </ul>
+    <br />
+    <h2>Ready?</h2>
+    <p><a class="btn btn-primary btn-lg" href="{% url "index" %}" role="button">Login and play</a></p>
+    <br />
+
+    <h3>Ce qu'il vous faudra:</h3>
+    <ul>
+        <li>Jeton d'équipe (identifiant)</li>
+        <li>2 participants</li>
+    </ul>
+
+    <h3>L'épreuve</h3>
+    <p>
+        Plusieurs défis ont étés récoltés afin d'aider nos juges à évaluer vos compétences en résolution de problème, votre vitesse et votre créativité.
+        Vous aurez un temps prédéfini pour résoudre trois défis simutanément. Chauque défi vous sera présenté de la façon suivante:
+
+    <div class="chal-wrapper col-md-12" data-submitted="false">
+      <div class="chal-hud col-md-12 col-sm-12">
+        <span class="chal-icon col-md-2 col-sm-2">Titre Indice</span>
+        <span class="chal-progress col-md-8 col-sm-8">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+          </div>
+        </span>
+        <span class="chal-status col-md-1 col-sm-1 text-center"><i class="glyphicon glyphicon-ok"></i></span>
+        <span class="chal-time col-md-1 col-sm-1">5 min</span>
+      </div>
+    </div>
+
+        La barre de progrès vous montre le temps restant pour soumetttre une solution à un défi. Lorsqu'une solution à un défi sera validée, la barre de progrès deviendra verte.
+        Quand le temps prévu pour un défi est écoulé, un nouveau défi sera lancé. Un indicateur à droite de chaque défi vous indiquera si vous l'avez reussi ou non avant la fin du temps permis.
+    </p>
+
+    <h3>Les défis</h3>
+    <p>
+        Vous aurez à résoudre ces défis le plus vite possible et en resoudre le plus possible.
+        Chaque soumission sera évaluée en se basant sur la correctitude, l'originalité et la ruse de la solution
+    </p>
+    <p>
+        Pour essayer un défi, cliquez sur sa barre de progrès. L'énoncé détaillé du défi sera affichée. Pour soumettre votre solution, créez une archive zip
+        contenant le code source de votre solution. Téléversez cette archive (*.zip) dans l'énoncé détaillé du défi et écrivez un LisezMoi.
+        Nous aurons besoin de savoir comment exécuter votre code ainsi que s'il y a quelque chose de spécial ou de rusé dans votre approche.
+    </p>
+    <p>
+        Lorsqu'une solution est bien validée, un bouton deviendra accessible. Malheureusement, nous n'avons pas la permission d'annoncer sont effet.
+        Nous avions espoir que vous puissiez le déduire vous-mêmes.
+    </p>
+
+    <h3>Les conseils</h3>
+    <ul>
+        <li>Vous avez droit à plusieurs soumissions par défi. Bien que vous ne débloquerai pas d'autres boutons, cela vous permettra de perfectionner vos solutions au besoin.</li>
+        <li>Rafraichir la page fréquement est une bonne idée selon l'Empire. Faites confiance à l'Empire</li>
+        <li>Soyez rusés?</li>
+    </ul>
+
+    <h2>Prêts?</h2>
+    <br />
+    <p><a class="btn btn-primary btn-lg" href="{% url "index" %}" role="button">Identifiez vous et jouez</a></p>
+    <br />
+
+{% endblock %}

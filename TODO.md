@@ -3,8 +3,7 @@
 
 # Features
 * Remaining challenges
-* Add tutorial landing page
-* Add not started
+* Better submission errors
 
 # Tests and Fixes
 * Remove problem-causing attacks

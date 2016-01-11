@@ -39,6 +39,10 @@ def index(request):
                            'failed': failed})
 
 
+def tutorial(request):
+    return render_to_response('competition/tutorial.html')
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def start(request):
 
