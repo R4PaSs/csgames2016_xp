@@ -18,11 +18,12 @@ from .forms import SubmissionForm
 from .yolo import yolos
 
 
-NEXT_EXPIRE = None
+STATUS = "STOPPED"
 
 
 @login_required()
 def index(request):
+
     chals = Challenge.objects.all()
     completed = Challenge.objects.filter(submission__team=request.user.team)
     failed = []
@@ -44,6 +45,20 @@ def tutorial(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
+def stop(request):
+
+    global STATUS
+    STATUS = "STOPPED"
+
+    chals = Challenge.objects.all()
+    for chal in chals:
+        chal.end = None
+        chal.save()
+
+    return render_to_response('competition/stop.html')
+
+
+@user_passes_test(lambda u: u.is_superuser)
 def start(request):
 
     _init_cleanup()
@@ -59,11 +74,15 @@ def start(request):
     for chal in initial_chals:
         _start_challenge(chal)
 
+    global STATUS
+    STATUS = "STARTED"
+
     return render_to_response('competition/start.html')
 
 
 @login_required()
 def update(request):
+
     _check_open_challenges()
     data = {}
     data['chals'] = _filter_chals(request.user.team)
@@ -272,6 +291,11 @@ def _filter_chals(team):
 
 
 def _check_open_challenges():
+
+    global STATUS
+    if STATUS == "STOPPED":
+        return
+
     open_chals = Challenge.objects.filter(end__gt=datetime.datetime.now())\
         .count()
     if open_chals < settings.OPEN_CHALLENGE_COUNT:

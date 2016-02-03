@@ -1,1 +1,1 @@
-alert("Here is a lore fragment for you: ASDFSADFASDFASDFDASFD");
+alert("The empire is dead!");
