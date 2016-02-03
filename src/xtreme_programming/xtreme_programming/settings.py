@@ -129,3 +129,5 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_URL = 'login'
+
+STATUS = "STOPPED"
