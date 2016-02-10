@@ -11,6 +11,7 @@ cd /opt/xp/src/xtreme_programming
 python manage.py syndb
 python create_teams.py
 python manage.py syncchallenges
+python manage.py createsuperuser
 
 # All setup... go back to your default shell
 exit
