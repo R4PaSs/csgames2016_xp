@@ -8,7 +8,7 @@ docker-compose run xp bash
 
 # You should now have a bash on the xp container
 cd /opt/xp/src/xtreme_programming
-python manage.py syndb
+python manage.py syncdb
 python create_teams.py
 python manage.py syncchallenges
 python manage.py createsuperuser
