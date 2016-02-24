@@ -23,6 +23,4 @@ window.zoomInterval = setInterval(function(){
 		document.body.style[prefix + 'transform'] = 'scale('+ newZoom.toString() + ', ' + newZoom.toString() +')';
 	});
 
-  console.log(newZoom);
-
 }, 800);

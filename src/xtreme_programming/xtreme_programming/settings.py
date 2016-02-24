@@ -120,6 +120,8 @@ STATICFILES_FINDERS = (
 # Custom settings
 MAX_USERS_PER_TEAM = 5
 OPEN_CHALLENGE_COUNT = 3
+MAX_ATTACKS = 2
+
 CHAL_DIR = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'chal')
 MEDIA_ROOT = '/media'
 

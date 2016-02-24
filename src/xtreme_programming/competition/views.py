@@ -13,7 +13,7 @@ from django.shortcuts import render, render_to_response
 
 from comp_auth.models import Team
 
-from .models import Attack, Challenge, Submission, TeamEvent
+from .models import Attack, Challenge, Submission, TeamEvent, GlobalStatus
 from .forms import SubmissionForm
 from .yolo import yolos
 
@@ -41,10 +41,36 @@ def tutorial(request):
     return render_to_response('competition/tutorial.html')
 
 
+@login_required
+def ready(request):
+    status = GlobalStatus.objects.all().first()
+    return JsonResponse({"status": status.status})
+
+@login_required
+def wait(request):
+    return render_to_response("competition/wait.html")
+
+@login_required
+def done(request):
+    return render_to_response("competition/done.html")
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def reset(request):
+
+    status = GlobalStatus(status="init")
+    status.save()
+
+    Attack.objects.all().delete()
+    TeamEvent.objects.all().delete()
+
+    return render_to_response("competition/reset.html")
+
 @user_passes_test(lambda u: u.is_superuser)
 def stop(request):
 
-    settings.STATUS = "STOPPED"
+    status = GlobalStatus(status="finished")
+    status.save()
 
     chals = Challenge.objects.all()
     for chal in chals:
@@ -70,7 +96,8 @@ def start(request):
     for chal in initial_chals:
         _start_challenge(chal)
 
-    settings.STATUS = "STARTED"
+    status = GlobalStatus(status="ongoing")
+    status.save()
 
     return render_to_response('competition/start.html')
 
@@ -78,14 +105,33 @@ def start(request):
 @login_required()
 def update(request):
 
-    _check_open_challenges()
     data = {}
+
+    status = GlobalStatus.objects.all().first()
+    data['global_status'] = status.status
+
+    _check_open_challenges()
     data['chals'] = _filter_chals(request.user.team)
+
     events = _check_yolo_avail(request.user.team)
     data['yolo_avail'] = True if events else False
 
+    # Attacks on self
     current_attacks = Attack.objects.filter(receiver=request.user.team,
+                                            started=True,
                                             over=False)
+
+    queued_attacks = Attack.objects.filter(receiver=request.user.team,
+                                           started=False,
+                                           over=False)
+
+    if len(current_attacks) < settings.MAX_ATTACKS:
+        if queued_attacks:
+            new_att = queued_attacks.first()
+            if new_att:
+                new_att.started = True
+                new_att.save()
+                current_attacks.append(new_att)
 
     if current_attacks:
         data['yolo'] = ""
@@ -145,27 +191,16 @@ def attack(request):
 
         rand_idx = randrange(0, len(yolos))
         attack_meta = yolos[rand_idx]
-        if attack_meta['type'] == "distributed":
-            for recv in Team.objects.all():
-                atk = Attack(attacker=team,
-                             receiver=recv,
-                             attack_number=rand_idx,
-                             distributed=True,
-                             attack_name=attack_meta["name"])
-                atk.save()
-        elif attack_meta["type"] == "targeted":
-            recv = randrange(0, 2)
-            if recv == 0:
-                recv = team
-            else:
-                recv = Team.objects.all().order_by('?')[0]
 
-            atk = Attack(attacker=team,
-                         receiver=recv,
-                         attack_number=rand_idx,
-                         distributed=False,
-                         attack_name=attack_meta["name"])
-            atk.save()
+        recv = Team.objects.all().order_by('?')[0]
+
+        atk = Attack(attacker=team,
+                     receiver=recv,
+                     attack_number=rand_idx,
+                     distributed=False,
+                     attack_name=attack_meta["name"])
+        atk.save()
+
         return HttpResponse(status=200)
     return HttpResponse(status=400)
 
@@ -291,10 +326,6 @@ def _filter_chals(team):
 
 def _check_open_challenges():
 
-    if settings.STATUS == "STOPPED":
-        print("TEST")
-        return
-
     open_chals = Challenge.objects.filter(end__gt=datetime.datetime.now())\
         .count()
     if open_chals < settings.OPEN_CHALLENGE_COUNT:
@@ -353,15 +384,9 @@ def _check_yolo_avail(team):
 
 
 def _remove_attack(team):
-    att = Attack.objects.filter(receiver=team, started=True, over=False)
-    if len(att) == 1:
+    att = Attack.objects.filter(receiver=team, started=True, over=False)\
+        .order_by('id')
+    if att:
         att = att[0]
         att.over = True
         att.save()
-    elif len(att) > 1:
-        att_num = len(att)
-        num_remove = att_num * 2 / 3
-        att = att[0:num_remove - 1]
-        for one_att in att:
-            one_att.over = True
-            one_att.save()
