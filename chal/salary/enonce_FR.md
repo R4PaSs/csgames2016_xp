@@ -5,5 +5,7 @@ Soit un nombre *n*, faite un programme qui trouve la plus petite base *b* telle 
 Exemples:
 
 > n=100 => b=3 (représentation: 10201)
+>
 > n=101 => b=10 (représentation: 101)
+>
 > n=102 => b=16 (représentation: 66)
