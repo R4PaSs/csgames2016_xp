@@ -1,10 +1,10 @@
 dev_dbdata:
-    image: postgres
+    image: postgres:9.4
     volumes:
         - /var/lib/postgresql/data/
         - /opt/xp/src/xtreme_programming/media/submission
 dev_db:
-    image: postgres
+    image: postgres:9.4
     environment:
         - PGDATA=/var/lib/postgresql/data/pgdata
     volumes_from:
