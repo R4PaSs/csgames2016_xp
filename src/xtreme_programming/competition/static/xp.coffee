@@ -7,15 +7,29 @@ init = ->
   setInterval(updateChals, 5000)
   window.currentZoom = 1.0;
 
+validateSubmission = (formData, jqForm, options) ->
+  for formField in formData
+    if !formField.value
+      if formField.name == "comment"
+        alert("You must fill the readme field before submitting.")
+      else if formField.name == "file"
+        alert("You must select a zip file before submitting.")
+      return false
+  return true
+
 bindChallengeModals = ->
   $(".chal-wrapper").click ->
     chalId = $(this).data "id"
     $.get "/problem/#{chalId}", (data) ->
       $("#chal-problem-wrapper").html data
-      $("#submission_form").ajaxForm( ->
-        $('#chalModal').modal('toggle')
-        setSolved(chalId)
-        document.location.reload()
+      $("#submission_form").ajaxForm(
+        {
+          beforeSubmit: validateSubmission,
+          success: ->
+            $('#chalModal').modal('toggle')
+            setSolved(chalId)
+            document.location.reload()
+        }
       )
 
 updateChals = ->
@@ -36,6 +50,7 @@ updateChals = ->
     if !!data["yolo"]
       eval data['yolo']
 
+    window.serverTime = data["server_time"]
     for chalWrapper in $(".chal-wrapper")
       updateProgress chalWrapper
 
@@ -47,6 +62,7 @@ updateProgress = (chal) ->
   # From dynamic json
   chalEnd = window.chals[chalId]["end"]
   chalSubmitted = window.chals[chalId]["submitted"]
+  serverTime = window.serverTime
 
   progressBar = $(chal).find(".progress-bar")
   if !chalEnd
@@ -56,8 +72,7 @@ updateProgress = (chal) ->
   if chalSubmitted == true
     setState(progressBar, "success")
 
-  time = new Date().getTime()
-  timeLeft = chalEnd - time
+  timeLeft = chalEnd - serverTime
   percent = timeLeft / (chalLength * 60 * 1000) * 100
 
   $(chal).find(".progress-bar").css("width", "#{percent}%")
