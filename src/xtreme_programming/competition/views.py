@@ -109,6 +109,7 @@ def update(request):
 
     status = GlobalStatus.objects.all().first()
     data['global_status'] = status.status
+    data['server_time'] = int(time.mktime(datetime.datetime.now().timetuple())) * 1000
 
     _check_open_challenges()
     data['chals'] = _filter_chals(request.user.team)
