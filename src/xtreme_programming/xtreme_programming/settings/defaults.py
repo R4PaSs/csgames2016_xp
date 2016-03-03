@@ -15,7 +15,7 @@ import os
 
 from django.contrib.messages import constants as messages
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,8 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '1k#8rzh)fbat#h@ber_5qt)on*caqx)!@!)1xfy-at9i#0fvno'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -123,7 +121,6 @@ OPEN_CHALLENGE_COUNT = 3
 MAX_ATTACKS = 2
 
 CHAL_DIR = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'chal')
-MEDIA_ROOT = '/media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MESSAGE_TAGS = {
@@ -133,3 +130,8 @@ MESSAGE_TAGS = {
 LOGIN_URL = 'login'
 
 STATUS = "STOPPED"
+
+if os.environ.get("XP_DEV", None):
+    from .dev import *
+else:
+    from .prod import *
