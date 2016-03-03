@@ -15,11 +15,15 @@ RUN update-rc.d -f  apache2 remove
 RUN chown -R www-data:www-data /opt/xp/src/xtreme_programming
 
 RUN mkdir -p /var/www/xp/static
+RUN mkdir -p /xp_media
+
 RUN chown -R www-data: /var/www/xp/
+RUN chown -R www-data: /xp_media
+
+RUN chmod 700 -R /xp_media
 
 CMD \
 	service apache2 stop && \
 	cd /opt/xp/src/xtreme_programming/ && \
 	python manage.py collectstatic --noinput && \
-	sleep 5 && \
 	/usr/sbin/apache2ctl -D FOREGROUND

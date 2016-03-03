@@ -1,7 +1,7 @@
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 STATIC_ROOT = "/var/www/xp/static/"
 
-MEDIA_ROOT = '/media'
+MEDIA_ROOT = '/xp_media'
