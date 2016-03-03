@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <div class="jumbotron">You are ready to play! Please wait for the admin to start the competition...</div>
+{% endblock %}
+
+{% block footer_scripts %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'wait.js' %}"></script>
+{% endblock %}

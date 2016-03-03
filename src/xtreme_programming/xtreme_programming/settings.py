@@ -27,7 +27,7 @@ SECRET_KEY = '1k#8rzh)fbat#h@ber_5qt)on*caqx)!@!)1xfy-at9i#0fvno'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -120,8 +120,10 @@ STATICFILES_FINDERS = (
 # Custom settings
 MAX_USERS_PER_TEAM = 5
 OPEN_CHALLENGE_COUNT = 3
+MAX_ATTACKS = 2
+
 CHAL_DIR = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'chal')
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = '/media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MESSAGE_TAGS = {
@@ -129,3 +131,5 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_URL = 'login'
+
+STATUS = "STOPPED"

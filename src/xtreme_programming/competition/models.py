@@ -2,6 +2,8 @@ from django.db import models
 
 from comp_auth.models import Team
 
+from .singleton import SingletonModel
+
 
 class Challenge(models.Model):
     length = models.IntegerField()
@@ -43,3 +45,7 @@ class Attack(models.Model):
         else:
             return "%s from %s to %s" % (self.attack_name, self.attacker.name,
                                          self.receiver.name)
+
+
+class GlobalStatus(SingletonModel):
+    status = models.CharField(max_length=32)

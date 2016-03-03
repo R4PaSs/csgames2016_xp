@@ -3,6 +3,7 @@ dbdata:
     volumes:
         - /var/lib/postgresql/data/
         - /opt/xp/src/xtreme_programming/media/submission
+        - /media
 db:
     image: postgres
     environment:

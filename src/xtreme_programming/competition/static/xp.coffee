@@ -3,7 +3,7 @@ $ ->
 
 init = ->
   bindChallengeModals()
-  $.get("/start")
+  updateChals()
   setInterval(updateChals, 5000)
   window.currentZoom = 1.0;
 
@@ -15,18 +15,20 @@ bindChallengeModals = ->
       $("#submission_form").ajaxForm( ->
         $('#chalModal').modal('toggle')
         setSolved(chalId)
-        $.refresh()
+        document.location.reload()
       )
 
 updateChals = ->
-  $.get "/update", (data) ->
+  $.get "/update/", (data) ->
+    if data['global_status'] == "finished"
+      document.location = "/done"
     window.chals = data.chals
     if data['yolo_avail']
       yoloBtn = $("#yoloButton")
       yoloBtn.click ->
         $("#yoloContainer").hide()
-        $.get "/attack"
-        $.refresh()
+        $.get "/attack/"
+        document.location.reload()
       $("#yoloContainer").show()
     else
       $("#yoloContainer").hide()

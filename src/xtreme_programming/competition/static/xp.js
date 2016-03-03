@@ -8,7 +8,7 @@
 
   init = function() {
     bindChallengeModals();
-    $.get("/start");
+    updateChals();
     setInterval(updateChals, 5000);
     return window.currentZoom = 1.0;
   };
@@ -22,22 +22,25 @@
         return $("#submission_form").ajaxForm(function() {
           $('#chalModal').modal('toggle');
           setSolved(chalId);
-          return $.refresh();
+          return document.location.reload();
         });
       });
     });
   };
 
   updateChals = function() {
-    return $.get("/update", function(data) {
+    return $.get("/update/", function(data) {
       var chalWrapper, i, len, ref, results, yoloBtn;
+      if (data['global_status'] === "finished") {
+        document.location = "/done";
+      }
       window.chals = data.chals;
       if (data['yolo_avail']) {
         yoloBtn = $("#yoloButton");
         yoloBtn.click(function() {
           $("#yoloContainer").hide();
-          $.get("/attack");
-          return $.refresh();
+          $.get("/attack/");
+          return document.location.reload();
         });
         $("#yoloContainer").show();
       } else {
@@ -106,5 +109,3 @@
   };
 
 }).call(this);
-
-//# sourceMappingURL=xp.js.map
