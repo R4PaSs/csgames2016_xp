@@ -24,7 +24,7 @@ def login_view(request):
                     # user = authenticate(username=team.name + "_user")
                     user.backend = 'django.contrib.auth.backends.ModelBackend'
                     login(request, user)
-                    return redirect('/play')
+                    return redirect('/wait')
     form = LoginForm()
 
     if settings.DEBUG:
