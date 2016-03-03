@@ -4,8 +4,8 @@
 
 Attention toutefois, il vous gérer correctement le cas des nombres négatifs selon la plus pure, la plus exacte et la plus hermétique des traditions mathématiciennes, à savoir:
 
-* Le reste n'est jamais négatif ni supérieur (inclusivement) à la valeur absolue du diviseur
-* Le dividende vaut la somme du reste et du produit du quotient par le diviseur
+* Le reste n'est jamais négatif ni supérieur, inclusivement, à la valeur absolue du diviseur
+* Le dividende vaut toujours la somme du reste et du produit du quotient par le diviseur
 
 Exemples:
 
