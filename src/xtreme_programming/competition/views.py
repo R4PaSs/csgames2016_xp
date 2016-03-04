@@ -334,8 +334,13 @@ def _check_open_challenges():
             new_chal = Challenge.objects.filter(end__isnull=True)\
                 .order_by('id')[0]
             _start_challenge(new_chal)
-        except:
-            pass
+        except Exception as e:
+            if isinstance(e, IndexError):
+                print("%s: Competition is over!" % datetime.datetime.now())
+                status = GlobalStatus(status="finished")
+                status.save()
+            else:
+                pass
 
 
 def _valid_zip(infile):

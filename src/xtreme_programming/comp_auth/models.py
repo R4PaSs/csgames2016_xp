@@ -7,6 +7,7 @@ class Team(models.Model):
     name = models.CharField(max_length=128)
     token = models.SlugField()
     user = models.OneToOneField(User, null=True)
+    display_name = models.CharField(max_length=128)
 
     def __repr__(self):
         return str(self.name)
