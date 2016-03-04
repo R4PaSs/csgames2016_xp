@@ -26,4 +26,4 @@ CMD \
 	service apache2 stop && \
 	cd /opt/xp/src/xtreme_programming/ && \
 	python manage.py collectstatic --noinput && \
-	/usr/sbin/apache2ctl -D FOREGROUND
+	/usr/sbin/apache2ctl -e debug -DFOREGROUND

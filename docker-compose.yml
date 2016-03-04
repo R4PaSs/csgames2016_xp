@@ -2,8 +2,7 @@ dbdata:
     image: postgres
     volumes:
         - /var/lib/postgresql/data/
-        - /opt/xp/src/xtreme_programming/media/submission
-        - /media
+        - /xp_media
 db:
     image: postgres
     environment:
