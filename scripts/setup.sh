@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Preparing to setup databases..."
+sleep 20
+
 echo $PWD
 if [[ $PWD/ = */scripts/ ]];
 then
